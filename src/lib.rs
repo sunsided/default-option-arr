@@ -251,4 +251,20 @@ mod tests {
             assert!(item.is_none());
         }
     }
+
+    #[test]
+    fn reference_vec() {
+        let arr: [Option<Complicated>; 10] = (0..10)
+            .into_iter()
+            .map(|_| None)
+            .collect::<Vec<_>>()
+            .try_into()
+            .map_err(|_| "try_into failed") // Debug required otherwise
+            .expect("initialization failed");
+
+        assert_eq!(arr.len(), 10);
+        for item in arr.into_iter() {
+            assert!(item.is_none());
+        }
+    }
 }
