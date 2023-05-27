@@ -4,5 +4,6 @@ version = "0.1.0"
 description = "Macros for simple default initialization of arrays of option types"
 authors = ["Markus Mayer"]
 repository = "https://github.com/sunsided/default-option-arr"
-keywords = ["array", "default-initialization", "option"]
+keywords = ["array", "default-init", "option"]
+license-file = "LICENSE.md"
 edition = "2021"
