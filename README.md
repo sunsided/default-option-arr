@@ -1,7 +1,19 @@
 # Default Array-of-Option\<T\> Macros
 
 Macros to make your life easier when dealing with default-initialized
-arrays of `Option<T>` for non-`Copy` types of `T` to `[None, ..]`.
+arrays of `Option<T>` or `Cell<Option<T>>` for non-`Copy` types of `T` to `[None, ..]`.
+
+### When you may need it
+
+- You need an array of `[Option<T>; N]` initialized to `[None; N]`, or
+- You need an array of `[Cell<Option<T>>; N]` initialized to `[Cell::new(None); N]`, or
+- You need an array of `[RefCell<Option<T>>; N]` initialized to `[RefCell::new(None); N]`.
+
+### When you will not need it
+
+- If your types already implement `Copy` or `Clone` and you don't need cells.
+
+## Examples
 
 ```rust
 use std::cell::Cell;
@@ -24,7 +36,16 @@ fn it_works() {
     }
     
     // The created type is an array.
-    let slice: &[Option<Complicated>] = &arr;
-    assert_eq!(slice.len(), 10);
+    let arr: [Option<Complicated>; 10] = arr;
+    assert_eq!(arr.len(), 10);
+}
+```
+
+Likewise, arrays of `Cell<Option<T>>` can be created.
+
+```rust
+fn cell_works() {
+    let arr: [Cell<Option<Complicated>>; 10] = none_cell_arr![Complicated; 10];
+    let arr: [RefCell<Option<Complicated>>; 10] = none_refcell_arr![Complicated; 10];
 }
 ```
