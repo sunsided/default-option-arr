@@ -1,0 +1,8 @@
+[package]
+name = "default-option-arr"
+version = "0.1.0"
+description = "Macros for simple default initialization of arrays of option types"
+authors = ["Markus Mayer"]
+repository = "https://github.com/sunsided/default-option-arr"
+keywords = ["array", "default-initialization", "option"]
+edition = "2021"
