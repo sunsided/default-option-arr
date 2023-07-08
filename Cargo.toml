@@ -1,9 +1,9 @@
 [package]
 name = "default-option-arr"
-version = "0.1.0"
+version = "0.1.1"
 description = "Macros for simple default initialization of arrays of option types"
 authors = ["Markus Mayer"]
 repository = "https://github.com/sunsided/default-option-arr"
 keywords = ["array", "default-init", "option"]
-license-file = "LICENSE.md"
+license = "EUPL-1.2"
 edition = "2021"
