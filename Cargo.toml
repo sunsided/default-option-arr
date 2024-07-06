@@ -7,3 +7,6 @@ repository = "https://github.com/sunsided/default-option-arr"
 keywords = ["array", "default-init", "option"]
 license = "EUPL-1.2"
 edition = "2021"
+
+[features]
+std = []

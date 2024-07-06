@@ -31,6 +31,8 @@
 //! }
 //! ```
 
+#![cfg_attr(not(feature = "std" ), no_std)]
+
 // Unsafe code is required for the initialization.
 #![allow(unsafe_code)]
 
@@ -73,7 +75,7 @@
 #[macro_export]
 macro_rules! none_arr {
     ($t:ty; $n:expr) => {{
-        use std::mem::MaybeUninit;
+        use core::mem::MaybeUninit;
 
         let mut uninit_data: MaybeUninit<[Option<$t>; $n]> = MaybeUninit::uninit();
         let array = uninit_data.as_mut_ptr();
@@ -83,7 +85,7 @@ macro_rules! none_arr {
 }
 
 /// Creates an array of type `[Cell<Option<T>>; N]` and default-initializes it to `Cell:new(None)`
-/// for every element. Similar to [`none_arr`], plus a [`Cell`](std::cell::Cell).
+/// for every element. Similar to [`none_arr`], plus a [`Cell`](core::cell::Cell).
 ///
 /// ## Macro Arguments
 ///
@@ -96,7 +98,7 @@ macro_rules! none_arr {
 /// created even though the default type `None` could be applied:
 ///
 /// ```compile_fail
-/// # use std::cell::Cell;
+/// # use core::cell::Cell;
 /// // This type does not implement Copy/Clone.
 /// struct Complicated;
 ///
@@ -107,7 +109,7 @@ macro_rules! none_arr {
 /// This crate simplifies array creation of these cases through the `none_cell_arr` macro:
 ///
 /// ```
-/// # use std::cell::Cell;
+/// # use core::cell::Cell;
 /// # use default_option_arr::none_cell_arr;
 /// # struct Complicated;
 /// let arr = none_cell_arr![Complicated; 10];
@@ -124,7 +126,7 @@ macro_rules! none_arr {
 macro_rules! none_cell_arr {
     ($t:ty; $n:expr) => {{
         use core::cell::Cell;
-        use std::mem::MaybeUninit;
+        use core::mem::MaybeUninit;
 
         let mut uninit_data: MaybeUninit<[Cell<Option<$t>>; $n]> = MaybeUninit::uninit();
         let array = uninit_data.as_mut_ptr();
@@ -134,7 +136,7 @@ macro_rules! none_cell_arr {
 }
 
 /// Creates an array of type `[RefCell<Option<T>>; N]` and default-initializes it to `Cell:new(None)`
-/// for every element. Similar to [`none_cell_arr`], but with a [`RefCell`](std::cell::RefCell).
+/// for every element. Similar to [`none_cell_arr`], but with a [`RefCell`](core::cell::RefCell).
 ///
 /// ## Macro Arguments
 ///
@@ -147,7 +149,7 @@ macro_rules! none_cell_arr {
 /// created even though the default type `None` could be applied:
 ///
 /// ```compile_fail
-/// # use std::cell::RefCell;
+/// # use core::cell::RefCell;
 /// // This type does not implement Copy/Clone.
 /// struct Complicated;
 ///
@@ -158,7 +160,7 @@ macro_rules! none_cell_arr {
 /// This crate simplifies array creation of these cases through the `none_refcell_arr` macro:
 ///
 /// ```
-/// # use std::cell::RefCell;
+/// # use core::cell::RefCell;
 /// # use default_option_arr::none_refcell_arr;
 /// # struct Complicated;
 /// let arr = none_refcell_arr![Complicated; 10];
@@ -175,7 +177,7 @@ macro_rules! none_cell_arr {
 macro_rules! none_refcell_arr {
     ($t:ty; $n:expr) => {{
         use core::cell::RefCell;
-        use std::mem::MaybeUninit;
+        use core::mem::MaybeUninit;
 
         let mut uninit_data: MaybeUninit<[RefCell<Option<$t>>; $n]> = MaybeUninit::uninit();
         let array = uninit_data.as_mut_ptr();
@@ -186,7 +188,7 @@ macro_rules! none_refcell_arr {
 
 #[cfg(test)]
 mod tests {
-    use std::mem::MaybeUninit;
+    use core::mem::MaybeUninit;
 
     // No copy, no clone.
     struct Complicated;
@@ -253,6 +255,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg(feature = "std")]
     fn reference_vec() {
         let arr: [Option<Complicated>; 10] = (0..10)
             .into_iter()
