@@ -3,7 +3,9 @@
 All notable changes to this project will be documented in this file.
 This project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [0.2.0] - 2024-07-07
+
+[0.2.0]: https://github.com/sunsided/default-option-arr/releases/tag/v0.2.0
 
 ### Changed
 
